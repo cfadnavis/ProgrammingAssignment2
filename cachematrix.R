@@ -8,8 +8,6 @@
 ## xm <- makeCacheMatrix(x)
 ## ixm <- cacheSolve(xm)
 ## ixm <- cacheSolve(xm) # cached matrix inverse returned
-##
-## author: c.fadnavis (https://github.com/cfadnavis)
 
 ## makeCacheMatrix creates a special matrix object that can cache its inverse
 ##
