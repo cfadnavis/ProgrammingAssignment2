@@ -31,7 +31,8 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
+## cacheSolve returns the inverse of the matrix specified by the vector
+## returned by makeCacheMatrix.
 ##
 ## Argument:
 ## x - Object created using the cache matrix object (special vector)
