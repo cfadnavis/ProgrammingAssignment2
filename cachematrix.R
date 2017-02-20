@@ -1,15 +1,53 @@
-## Put comments here that give an overall description of what your
-## functions do
+## cachematrix.R - Provides a special vector object that returns the inverse
+## of a matrix. The inverse is cached after the first computation. Use this 
+## vector when using the inverse of a large matrix whose inverse calculation
+## is computationally expensive. 
+##
+## Usage:
+## x<-matrix(c(-1,0,0,-1),2,2)
+## xm <- makeCacheMatrix(x)
+## ixm <- cacheSolve(xm)
+## ixm <- cacheSolve(xm) # cached matrix inverse returned
+##
+## author: c.fadnavis (https://github.com/cfadnavis)
 
-## Write a short comment describing this function
+## makeCacheMatrix creates a special matrix object that can cache its inverse
+##
+## Argument:
+## x - numeric invertible matrix 
 
 makeCacheMatrix <- function(x = matrix()) {
-
+    m <- NULL
+    set <- function(y) {
+        x <<- y
+        m <<- NULL
+    }
+    get <- function() x
+    setinverse <- function(inverse) m <<- inverse
+    getinverse <- function() m
+    list(set = set, get = get,
+         setinverse = setinverse,
+         getinverse = getinverse)
 }
 
 
 ## Write a short comment describing this function
+##
+## Argument:
+## x - Object created using the cache matrix object (special vector)
+##
+## Value:
+## Matrix that is the inverse of 'x'. Cached value returned if inverse has
+## been previously computed.
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+    m <- x$getinverse()
+    if(!is.null(m)) {
+        message("getting cached data")
+        return(m)
+    }
+    data <- x$get()
+    m <- solve(data, ...)
+    x$setinverse(m)
+    m
 }
